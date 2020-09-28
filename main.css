@@ -1,30 +1,36 @@
 * {
   margin: 0;
+  font-family: Comic Sans MS;
 }
 
 body {
   display: grid;
   height: 100%;
   grid-template-rows: 90px 220px 220px 220px 300px;
-  gap: 5px;
-  margin: 0 10%;
+  gap: 1px;
   user-select: none;
   background: rgb(15, 15, 15);
 }
 
 #row1 {
   grid-row: 1;
+  border-bottom: 10px solid orange;
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
-  border-bottom: 20px solid orange;
   border-radius: 10px;
+  margin: 0 10%;
 }
 
 #row2 {
   grid-row: 2;
+  border-top: 10px solid orange;
+  padding-top: 4px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   gap: 10px;
+  border-radius: 10px;
+  margin: 0 10%;
+  margin-bottom: 4px;
 }
 
 #row3 {
@@ -32,6 +38,8 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   gap: 10px;
+  margin: 0 10%;
+  margin-bottom: 4px;
 }
 
 #row4 {
@@ -39,41 +47,89 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   gap: 10px;
+  margin: 0 10%;
+  padding-bottom: 4px;
+  border-bottom: 10px solid orange;
+  border-radius: 10px;
+  margin-bottom: 4px;
+}
+
+#row5 {
+  grid-row: 5;
+  border-top: 10px solid orange;
+  border-radius: 10px;
+  background: orange;
+}
+
+#userTurns {
+  grid-column: 1;
+  background: white;
+  border: 10px solid red;
+  border-radius: 10px;
+  width: 80%;
+  height: 30%;
+  margin-right: 13%;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 32px;
 }
 
 #title {
   display: grid;
   grid-column: 2;
   text-align: center;
-  color: white;
-  background: red;
-  font-size: 30px;
+  background: orange;
+  font-size: 20px;
   margin-bottom: 10px;
   border-radius: 10px;
+  border: 10px solid red;
+}
+
+#restart {
+  grid-column: 3;
+  background: white;
+  border: 10px solid red;
+  border-radius: 10px;
+  width: 80%;
+  height: 30%;
+  margin-left: 13%;
+  margin-top: 32px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
 }
 
 .slots {
   border: 1px solid #000;
   text-align: center;
   padding-top: 20%;
-  border: 5px dotted lightgrey;
+  border: 5px dotted black;
   background: red;
   border-radius: 7px;
+  font-size: 75%;
 }
 
 .slots h2 {
-  border: 5px solid lightgrey;
+  border: 5px solid black;
   height: 90px;
   width: 150px;
   margin-left: 3%;
   padding-top: 30%;
-  background: white;
+  background: orange;
   border-radius: 7px;
+  cursor: pointer;
 }
 
 .hideText {
-  color: white;
-  background: white;
+  color: orange;
+}
+
+#endGameScreen {
+  font-size: 200px;
+  padding-top: 40px;
+  text-align: center;
 }
 
 #slot1 {
@@ -148,27 +204,33 @@ body {
   grid-column: 6;
 }
 
-#modal {
+#startScreen {
   position: fixed;
-  font-family: Arial, Helvetica, sans-serif;
   top: 0;
   left: 0;
   z-index: 99999;
   height: 100%;
   width: 100%;
 }
-#modal p {
-  font-size: 48px;
-  font-family: didot;
+
+#startScreen h6 {
+  font-size: 30px;
   font-weight: bold;
   text-align: center;
 }
-.modalContent {
+
+#startScreen h1 {
+  font-size: 150px;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 1px;
+}
+.startScreenContent {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: grey;
+  background: black;
   width: 100%;
   height: 100%;
   padding: 20px;
@@ -176,13 +238,18 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  color: red;
 }
-#buttonModal {
+
+#buttonStart {
   margin-top: 35px;
-  background-color: lightgrey;
-  border-radius: 4px;
-  font-size: 12px;
-  height: 40px;
-  width: 100px;
-  border: none;
+  background-color: orange;
+  border-radius: 10px;
+  font-size: 80px;
+  height: 200px;
+  width: 600px;
+  border: 20px solid red;
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
 }

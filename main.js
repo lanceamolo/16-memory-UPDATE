@@ -1,22 +1,9 @@
-// Have a "new game" screen with a single choice "new game"
-// The game should have a total of 9 pairs (18 cards total)
-// When the user runs out of turns, show a losing screen
-// When the chooses two cards that do not match, flip them back over
-// When the user wins or loses, indicate as much
 // All screens should be generated via JavaScript templates
 
-// First priority!
 // Focus on getting the actual game to work first! Then focus on the next feature.
 // Understand how cards turn
 
 // shuffle deck of cards and place them on the board
-// const chosenWord = allowedWords[Math.floor(Math.random() * allowedWords.length)]
-// console.log(chosenWord)
-// const gbpItemTitle = gbpItem.map(function (item) {
-//   return `${item.title} $${item.price}`
-// })
-// document.querySelector("#answer3").innerHTML = `${gbpItemTitle}`
-
 const deck = [
   "variables",
   "variables",
@@ -58,32 +45,53 @@ function shuffle(array) {
   return array
 }
 
-// start screen trigger the 1st shuffle
+// Have a "new game" screen with a single choice "new game"
 window.onload = function () {
-  document.getElementById("buttonModal").onclick = function () {
-    document.getElementById("modal").style.display = "none"
+  document.getElementById("buttonStart").onclick = function () {
+    document.documentElement.scrollTop = 0
+    document.getElementById("startScreen").style.display = "none"
   }
 }
 
+// start screen trigger the 1st shuffle
 const deckShuffle = shuffle(deck)
 console.log(deck)
 
 let gameGrid = []
-for (let j = 0; j < deckShuffle.length; j++) {
-  gameGrid = deckShuffle[j]
+for (let i = 0; i < deckShuffle.length; i++) {
+  gameGrid = deckShuffle[i]
   console.log(gameGrid)
-  document.getElementsByClassName("slot")[j].innerHTML = `${gameGrid}`
+  document.getElementsByClassName("slot")[i].innerHTML = `${gameGrid}`
 }
 
-// When the user finds a match, leave the cards face up and disallow clicking those cards
+// need to be able to click on each card to show bottom side
 const slot = document.querySelectorAll(".slot")
+const endGameScreen = document.getElementById("endGameScreen")
+const userTurns = document.getElementById("userTurns")
+const restart = document.getElementById("restart")
+
+restart.addEventListener("click", () => {
+  window.location.reload()
+})
+
+endGameScreen.innerHTML = "Good luck!"
 
 // empty variables for clicked on data
 let card1
 let card2
+
 // gatekeep turn 2 until i get data for card 1
 let turn2 = false
 
+// track players turns
+let turnsLeft = 16
+userTurns.innerHTML = "Turns left: " + turnsLeft
+
+// fill array to win game
+let winGame = []
+let gameFinished = false
+
+// When the user finds a match, leave the cards face up and disallow clicking those cards
 function flipCard() {
   this.classList.remove("hideText")
 
@@ -100,6 +108,8 @@ function flipCard() {
     // circle back around to turn 1
     turn2 = false
 
+    turnsLeft = turnsLeft - 1
+    userTurns.innerHTML = "Turns left: " + turnsLeft
     matching()
     console.log(card1)
     console.log(card2)
@@ -111,8 +121,29 @@ function matching() {
     // hide cards again if they dont match data attribute
     unflipCards()
     setTimeout(() => {
-      alert("Try again")
+      // When the user runs out of turns, show a losing screen
+      if (turnsLeft == 0) {
+        disableGame()
+        setTimeout(() => {
+          gameFinished = true
+          window.scrollTo(0, document.body.scrollHeight)
+          endGameScreen.innerHTML = "YOU LOSE!!!"
+        }, 500)
+      }
     }, 25)
+  } else {
+    card1.style.backgroundColor = "white"
+    card2.style.backgroundColor = "white"
+    disableCards(card1, card2)
+    winGame.push(card1.innerHTML, card2.innerHTML)
+    console.log(winGame)
+    setTimeout(() => {
+      if (winGame.length == 18) {
+        gameFinished = true
+        window.scrollTo(0, document.body.scrollHeight)
+        endGameScreen.innerHTML = "YOU WIN!!!!!!"
+      }
+    }, 1000)
   }
 }
 
@@ -123,24 +154,13 @@ function unflipCards() {
   }, 500)
 }
 
-// need to be able to click on each card to show bottom side
+function disableCards() {
+  card1.removeEventListener("click", flipCard)
+  card2.removeEventListener("click", flipCard)
+}
+
+function disableGame() {
+  document.removeEventListener("click", flipCard)
+}
+
 slot.forEach((card) => card.addEventListener("click", flipCard))
-
-// const slots = document.querySelectorAll(".card")
-
-// let cardOne
-// let startTurn2 = false
-// let cardTwo
-
-// let chosenCards = []
-// const pickCard = document.addEventListener("click", (e) => {
-//   for (let i = 0; i < slots.length; i++) {
-//     slots[i].onclick = function (e) {
-//       let currentTgt = e.target
-//       currentTgt.classList.remove("hideText")
-//       chosenCards.push(this.outerHTML)
-//       console.log(currentTgt)
-//       console.log(chosenCards)
-//     }
-//   }
-// })

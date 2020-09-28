@@ -7,18 +7,22 @@
   <title>Document</title>
   <link rel="stylesheet" href="main.css">
 </head>
-<div id="modal">
-  <div class="modalContent">
-    <p style="text-align: center">Welcome to Memory Game!</p>
-    <button id="buttonModal">Game start</button>
+<div id="startScreen">
+  <div class="startScreenContent">
+    <h6>Welcome to</h6>
+    <br>
+    <h1 style="text-align: center">Memory Game!</h1>
+    <button id="buttonStart">Game start</button>
   </div>
 </div>
 
 <body>
   <div id="row1">
+    <div id="userTurns"></div>
     <div id="title">
       <h1>MEMORY GAME</h1>
     </div>
+    <div id="restart">RestartGame</div>
   </div>
   <div id="row2">
     <div id="slot1" class="slots">
@@ -79,6 +83,9 @@
     <div id="slot18" class="slots">
       <h2 class="slot hideText"></h2>
     </div>
+  </div>
+  <div id="row5">
+    <h1 id="endGameScreen"></h1>
   </div>
   <script src="main.js"></script>
 </body>
